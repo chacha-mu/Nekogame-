@@ -145,12 +145,7 @@ function update() {
 
   // 弾移動
   bullets.forEach((bullet) => {
-
-    bullet.x += bullet.vx;
-    bullet.y += bullet.vy;
-
-  });
-  for (let i = bullets.length - 1; i >= 0; i--) {
+ for (let i = bullets.length - 1; i >= 0; i--) {
 
   const b = bullets[i];
 
@@ -164,6 +159,11 @@ function update() {
   }
 
 }
+    bullet.x += bullet.vx;
+    bullet.y += bullet.vy;
+
+  });
+ 
 
   // 当たり判定
   for (let i = humans.length - 1; i >= 0; i--) {
