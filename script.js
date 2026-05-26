@@ -59,7 +59,7 @@ function spawnHuman() {
   });
 }
 
-// 敵大量発生
+// 超大量湧き
 setInterval(spawnHuman, 80);
 
 function shoot() {
@@ -150,7 +150,22 @@ function update() {
     bullet.y += bullet.vy;
 
   });
- 
+
+  // 画面外の弾削除
+  for (let i = bullets.length - 1; i >= 0; i--) {
+
+    const b = bullets[i];
+
+    if (
+      b.x < 0 ||
+      b.x > canvas.width ||
+      b.y < 0 ||
+      b.y > canvas.height
+    ) {
+      bullets.splice(i, 1);
+    }
+
+  }
 
   // 当たり判定
   for (let i = humans.length - 1; i >= 0; i--) {
@@ -254,43 +269,6 @@ function loop() {
 
   requestAnimationFrame(loop);
 
-}
-
-loop();
-      ctx.font = "20px sans-serif";
-      ctx.fillText("❤️" + human.hp, human.x, human.y - 10);
-
-    } else {
-      ctx.font = "35px serif";
-      ctx.fillText("🧑", human.x, human.y);
-    }
-
-  });
-
-  // 弾
-  bullets.forEach((bullet) => {
-    ctx.font = "20px serif";
-    ctx.fillText("💨", bullet.x, bullet.y);
-  });
-
-  // GAME OVER
-  if (gameOver) {
-    ctx.fillStyle = "rgba(0,0,0,0.7)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.fillStyle = "white";
-    ctx.font = "50px sans-serif";
-    ctx.fillText("GAME OVER", 140, 300);
-
-    ctx.font = "30px sans-serif";
-    ctx.fillText("SCORE: " + score, 210, 360);
-  }
-}
-
-function loop() {
-  update();
-  draw();
-  requestAnimationFrame(loop);
 }
 
 loop();
