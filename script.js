@@ -145,20 +145,7 @@ function update() {
 
   // 弾移動
   bullets.forEach((bullet) => {
- for (let i = bullets.length - 1; i >= 0; i--) {
 
-  const b = bullets[i];
-
-  if (
-    b.x < 0 ||
-    b.x > canvas.width ||
-    b.y < 0 ||
-    b.y > canvas.height
-  ) {
-    bullets.splice(i, 1);
-  }
-
-}
     bullet.x += bullet.vx;
     bullet.y += bullet.vy;
 
