@@ -46,9 +46,15 @@ function spawnHuman() {
     y = canvas.height;
   }
 
+  // 10%で強敵出現
+  const isBoss = Math.random() < 0.1;
+
   humans.push({
     x,
-    y
+    y,
+    hp: isBoss ? 5 : 1,
+    speed: isBoss ? 0.8 : 1.5,
+    boss: isBoss
   });
 }
 
@@ -88,23 +94,31 @@ setInterval(shoot, 400);
 function update() {
   if (gameOver) return;
 
+  // 移動
   if (keys["ArrowUp"] || keys["w"]) player.y -= player.speed;
   if (keys["ArrowDown"] || keys["s"]) player.y += player.speed;
   if (keys["ArrowLeft"] || keys["a"]) player.x -= player.speed;
   if (keys["ArrowRight"] || keys["d"]) player.x += player.speed;
 
+  // 画面外防止
+  player.x = Math.max(0, Math.min(canvas.width - 40, player.x));
+  player.y = Math.max(0, Math.min(canvas.height - 40, player.y));
+
+  // 敵移動
   humans.forEach((human) => {
     const dx = player.x - human.x;
     const dy = player.y - human.y;
     const len = Math.sqrt(dx * dx + dy * dy);
 
-    human.x += (dx / len) * 1.5;
-    human.y += (dy / len) * 1.5;
+    human.x += (dx / len) * human.speed;
+    human.y += (dy / len) * human.speed;
 
     const dist = Math.sqrt(dx * dx + dy * dy);
 
+    // 接触ダメージ
     if (dist < 30) {
-      player.hp -= 1;
+      player.hp -= human.boss ? 2 : 1;
+
       hpText.textContent = player.hp;
 
       if (player.hp <= 0) {
@@ -113,11 +127,13 @@ function update() {
     }
   });
 
+  // 弾移動
   bullets.forEach((bullet) => {
     bullet.x += bullet.vx;
     bullet.y += bullet.vy;
   });
 
+  // 当たり判定
   for (let i = humans.length - 1; i >= 0; i--) {
     for (let j = bullets.length - 1; j >= 0; j--) {
 
@@ -126,11 +142,24 @@ function update() {
       const dist = Math.sqrt(dx * dx + dy * dy);
 
       if (dist < 25) {
-        humans.splice(i, 1);
+
+        humans[i].hp--;
+
         bullets.splice(j, 1);
 
-        score++;
-        scoreText.textContent = score;
+        // 倒した
+        if (humans[i].hp <= 0) {
+
+          if (humans[i].boss) {
+            score += 5;
+          } else {
+            score += 1;
+          }
+
+          scoreText.textContent = score;
+
+          humans.splice(i, 1);
+        }
 
         break;
       }
@@ -141,26 +170,45 @@ function update() {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  // プレイヤー猫
   ctx.font = "40px serif";
   ctx.fillText("🐈", player.x, player.y);
 
+  // 敵
   humans.forEach((human) => {
-    ctx.font = "35px serif";
-    ctx.fillText("🧑", human.x, human.y);
+
+    if (human.boss) {
+      ctx.font = "50px serif";
+      ctx.fillText("🧔", human.x, human.y);
+
+      // ボスHP表示
+      ctx.font = "20px sans-serif";
+      ctx.fillText("❤️" + human.hp, human.x, human.y - 10);
+
+    } else {
+      ctx.font = "35px serif";
+      ctx.fillText("🧑", human.x, human.y);
+    }
+
   });
 
+  // 弾
   bullets.forEach((bullet) => {
     ctx.font = "20px serif";
     ctx.fillText("💨", bullet.x, bullet.y);
   });
 
+  // GAME OVER
   if (gameOver) {
     ctx.fillStyle = "rgba(0,0,0,0.7)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "white";
     ctx.font = "50px sans-serif";
-    ctx.fillText("GAME OVER", 150, 300);
+    ctx.fillText("GAME OVER", 140, 300);
+
+    ctx.font = "30px sans-serif";
+    ctx.fillText("SCORE: " + score, 210, 360);
   }
 }
 
