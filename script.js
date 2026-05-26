@@ -60,7 +60,7 @@ function spawnHuman() {
 }
 
 // 敵大量発生
-setInterval(spawnHuman, 300);
+setInterval(spawnHuman, 80);
 
 function shoot() {
 
@@ -150,6 +150,20 @@ function update() {
     bullet.y += bullet.vy;
 
   });
+  for (let i = bullets.length - 1; i >= 0; i--) {
+
+  const b = bullets[i];
+
+  if (
+    b.x < 0 ||
+    b.x > canvas.width ||
+    b.y < 0 ||
+    b.y > canvas.height
+  ) {
+    bullets.splice(i, 1);
+  }
+
+}
 
   // 当たり判定
   for (let i = humans.length - 1; i >= 0; i--) {
