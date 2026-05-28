@@ -57,9 +57,15 @@ function spawnHuman() {
     speed: isBoss ? 0.8 : 1.5,
     boss: isBoss
   });
+
 }
 
-// 超大量湧き
+// 最初から敵を出す
+for (let i = 0; i < 10; i++) {
+  spawnHuman();
+}
+
+// 敵大量発生
 setInterval(spawnHuman, 80);
 
 function shoot() {
@@ -84,7 +90,10 @@ function shoot() {
 
   const dx = nearest.x - player.x;
   const dy = nearest.y - player.y;
-  const len = Math.sqrt(dx * dx + dy * dy);
+
+  let len = Math.sqrt(dx * dx + dy * dy);
+
+  if (len < 0.1) len = 0.1;
 
   bullets.push({
     x: player.x,
@@ -117,7 +126,11 @@ function update() {
 
     const dx = player.x - human.x;
     const dy = player.y - human.y;
-    const len = Math.sqrt(dx * dx + dy * dy);
+
+    let len = Math.sqrt(dx * dx + dy * dy);
+
+    // 0除算防止
+    if (len < 0.1) len = 0.1;
 
     human.x += (dx / len) * human.speed;
     human.y += (dy / len) * human.speed;
@@ -223,7 +236,7 @@ function draw() {
       ctx.font = "50px serif";
       ctx.fillText("🧔", human.x, human.y);
 
-      // ボスHP
+      // ボスHP表示
       ctx.font = "20px sans-serif";
       ctx.fillText("❤️" + human.hp, human.x, human.y - 10);
 
