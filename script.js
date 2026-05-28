@@ -61,7 +61,7 @@ function spawnHuman() {
 }
 
 // 最初から敵を出す
-for (let i = 0; i < 3; i++) {
+for (let i = 0; i < 2; i++) {
   spawnHuman();
 }
 
