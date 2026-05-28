@@ -38,14 +38,23 @@ const cats = {
   },
 
   attack: {
-    name: "ATTACK",
-    emoji: "😾",
-    hp: 70,
-    speed: 4,
-    shootSpeed: 320,
-    skillName: "3WAY",
-    skillCooldown: 7000
-  }
+  name: "ATTACK",
+  emoji: "😾",
+
+  // 超紙耐久
+  hp: 45,
+
+  // 少し遅い
+  speed: 4,
+
+  // 発射速度弱体化
+  shootSpeed: 500,
+
+  skillName: "3WAY",
+
+  // 必殺技も遅め
+  skillCooldown: 10000
+}
 
 };
 
