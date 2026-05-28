@@ -66,7 +66,7 @@ for (let i = 0; i < 10; i++) {
 }
 
 // 敵大量発生
-setInterval(spawnHuman, 80);
+setInterval(spawnHuman, 100);
 
 function shoot() {
 
