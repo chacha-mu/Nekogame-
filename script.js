@@ -13,6 +13,7 @@ const player = {
 
 let score = 0;
 let gameOver = false;
+let gameStarted = false;
 
 const humans = [];
 const bullets = [];
@@ -60,14 +61,6 @@ function spawnHuman() {
 
 }
 
-// 最初から敵を出す
-for (let i = 0; i < 2; i++) {
-  spawnHuman();
-}
-
-// 敵大量発生
-setInterval(spawnHuman, 500);
-
 function shoot() {
 
   if (humans.length === 0) return;
@@ -104,11 +97,74 @@ function shoot() {
 
 }
 
-// 自動攻撃
-setInterval(shoot, 400);
+function startGame() {
+
+  if (gameStarted) return;
+
+  gameStarted = true;
+
+  spawnHuman();
+
+  setInterval(spawnHuman, 500);
+
+  setInterval(shoot, 400);
+
+}
+
+function restartGame() {
+
+  player.x = 300;
+  player.y = 300;
+  player.hp = 100;
+
+  humans.length = 0;
+  bullets.length = 0;
+
+  score = 0;
+
+  hpText.textContent = player.hp;
+  scoreText.textContent = score;
+
+  gameOver = false;
+
+  spawnHuman();
+
+}
+
+canvas.addEventListener("click", (e) => {
+
+  const rect = canvas.getBoundingClientRect();
+
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+
+  // STARTボタン
+  if (
+    !gameStarted &&
+    mx >= 200 &&
+    mx <= 400 &&
+    my >= 260 &&
+    my <= 330
+  ) {
+    startGame();
+  }
+
+  // RESTARTボタン
+  if (
+    gameOver &&
+    mx >= 190 &&
+    mx <= 410 &&
+    my >= 380 &&
+    my <= 450
+  ) {
+    restartGame();
+  }
+
+});
 
 function update() {
 
+  if (!gameStarted) return;
   if (gameOver) return;
 
   // プレイヤー移動
@@ -129,13 +185,12 @@ function update() {
 
     let len = Math.sqrt(dx * dx + dy * dy);
 
-    // 0除算防止
     if (len < 0.1) len = 0.1;
 
     human.x += (dx / len) * human.speed;
     human.y += (dy / len) * human.speed;
 
-    // 敵も画面外へ行かない
+    // 画面外防止
     human.x = Math.max(0, Math.min(canvas.width - 40, human.x));
     human.y = Math.max(0, Math.min(canvas.height - 40, human.y));
 
@@ -236,7 +291,6 @@ function draw() {
       ctx.font = "50px serif";
       ctx.fillText("🧔", human.x, human.y);
 
-      // ボスHP表示
       ctx.font = "20px sans-serif";
       ctx.fillText("❤️" + human.hp, human.x, human.y - 10);
 
@@ -257,6 +311,25 @@ function draw() {
 
   });
 
+  // タイトル画面
+  if (!gameStarted) {
+
+    ctx.fillStyle = "rgba(0,0,0,0.7)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "white";
+    ctx.font = "50px sans-serif";
+    ctx.fillText("猫吸い防衛戦", 130, 180);
+
+    ctx.fillStyle = "#ffcc00";
+    ctx.fillRect(200, 260, 200, 70);
+
+    ctx.fillStyle = "black";
+    ctx.font = "30px sans-serif";
+    ctx.fillText("START", 235, 305);
+
+  }
+
   // GAME OVER
   if (gameOver) {
 
@@ -266,10 +339,18 @@ function draw() {
     ctx.fillStyle = "white";
 
     ctx.font = "50px sans-serif";
-    ctx.fillText("GAME OVER", 140, 280);
+    ctx.fillText("GAME OVER", 140, 220);
 
     ctx.font = "30px sans-serif";
-    ctx.fillText("SCORE: " + score, 210, 340);
+    ctx.fillText("SCORE: " + score, 210, 280);
+
+    // RESTARTボタン
+    ctx.fillStyle = "#ffcc00";
+    ctx.fillRect(190, 360, 220, 70);
+
+    ctx.fillStyle = "black";
+    ctx.font = "30px sans-serif";
+    ctx.fillText("RESTART", 220, 405);
 
   }
 
@@ -283,5 +364,7 @@ function loop() {
   requestAnimationFrame(loop);
 
 }
+
+loop();
 
 loop();
