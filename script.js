@@ -9,7 +9,7 @@ const cats = {
 
   normal: {
     name: "NORMAL",
-    emoji: "🐈",
+     image: "ノーマル猫.png",
     hp: 120,
     speed: 5,
     shootSpeed: 350,
@@ -19,7 +19,7 @@ const cats = {
 
   fast: {
     name: "FAST",
-    emoji: "🐆",
+    image: "スピード猫.jpg",
     hp: 80,
     speed: 8,
     shootSpeed: 450,
@@ -29,7 +29,7 @@ const cats = {
 
   tank: {
     name: "TANK",
-    emoji: "🐅",
+     image: "タンク猫.jpg",
     hp: 300,
     speed: 3,
     shootSpeed: 450,
@@ -39,12 +39,12 @@ const cats = {
 
   attack: {
     name: "ATTACK",
-    emoji: "😾",
+     image: "アタッカー猫.jpg",
 
     // 弱体化
     hp: 45,
     speed: 4,
-    shootSpeed: 500,
+    shootSpeed: 600,
 
     skillName: "3WAY",
     skillCooldown: 10000
