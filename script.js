@@ -6,16 +6,16 @@ const scoreText = document.getElementById("score");
 
 // 猫画像
 const normalImg = new Image();
-normalImg.src = ".images/アタッカー猫.png";
+normalImg.src = "アタッカー猫.png";
 
 const fastImg = new Image();
-fastImg.src = "images/スピード猫.png";
+fastImg.src = "スピード猫.png";
 
 const tankImg = new Image();
-tankImg.src = "images/タンク猫.png";
+tankImg.src = "タンク猫.png";
 
 const attackImg = new Image();
-attackImg.src = "images/アタッカー猫.png";
+attackImg.src = "アタッカー猫.png";
 
 // 猫データ
 const cats = {
