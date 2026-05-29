@@ -683,7 +683,7 @@ function draw() {
     if (human.boss) {
 
       ctx.font = "50px sans-serif";
-      ctx.fillText("🧔", human.x, human.y);
+      ctx.fillText("🧔🏿‍♂️", human.x, human.y);
 
     } else {
 
