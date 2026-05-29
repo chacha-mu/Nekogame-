@@ -3,7 +3,17 @@ const ctx = canvas.getContext("2d");
 
 const hpText = document.getElementById("hp");
 const scoreText = document.getElementById("score");
+const normalImg = new Image();
+normalImg.src = "images/ノーマル猫.png";
 
+const fastImg = new Image();
+fastImg.src = "images/スピード猫.png";
+
+const tankImg = new Image();
+tankImg.src = "images/タンク猫.png";
+
+const attackImg = new Image();
+attackImg.src = "images/アタッカー猫.png";
 // 猫データ
 const cats = {
 
@@ -476,7 +486,7 @@ function draw() {
 
   // プレイヤー
   ctx.font = "40px sans-serif";
-  ctx.fillText(player.emoji, player.x, player.y);
+  ctx.drawImage(catImage, player.x, player.y, 48, 48);
 
   // シールド表示
   if (shieldMode) {
