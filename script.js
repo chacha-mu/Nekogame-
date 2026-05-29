@@ -186,7 +186,6 @@ function shoot() {
   if (humans.length === 0) return;
 
   let nearest = humans[0];
-
   let best = Infinity;
 
   humans.forEach((human) => {
@@ -204,6 +203,37 @@ function shoot() {
     }
 
   });
+
+  // ====================
+  // 未来位置を予測
+  // ====================
+
+  const futureX =
+    nearest.x + (nearest.x - player.x) * 0.08;
+
+  const futureY =
+    nearest.y + (nearest.y - player.y) * 0.08;
+
+  const dx = futureX - player.x;
+  const dy = futureY - player.y;
+
+  let len = Math.sqrt(dx * dx + dy * dy);
+
+  if (len < 0.1) len = 0.1;
+
+  const bulletSpeed = 14;
+
+  bullets.push({
+
+    x: player.x + 24,
+    y: player.y + 24,
+
+    vx: (dx / len) * bulletSpeed,
+    vy: (dy / len) * bulletSpeed
+
+  });
+
+}
 
   const dx = nearest.x - player.x;
   const dy = nearest.y - player.y;
