@@ -22,7 +22,7 @@ const cats = {
     image: "スピード猫.jpg",
     hp: 80,
     speed: 8,
-    shootSpeed: 450,
+    shootSpeed: 300,
     skillName: "ダッシュ",
     skillCooldown: 6000
   },
@@ -44,7 +44,7 @@ const cats = {
     // 弱体化
     hp: 45,
     speed: 4,
-    shootSpeed: 600,
+    shootSpeed: 350,
 
     skillName: "3WAY",
     skillCooldown: 10000
