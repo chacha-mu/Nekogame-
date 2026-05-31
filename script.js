@@ -1,4 +1,4 @@
-alert("JS読み込み成功");
+
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
@@ -32,7 +32,7 @@ const cats = {
     image: normalImg,
     hp: 120,
     speed: 5,
-    shootSpeed: 250,
+    shootSpeed: 275,
     skillName: "ニャンラッシュ",
     skillCooldown: 8000
   },
@@ -42,7 +42,7 @@ const cats = {
     image: fastImg,
     hp: 80,
     speed: 8,
-    shootSpeed: 320,
+    shootSpeed: 200,
     skillName: "ダッシュ",
     skillCooldown: 6000
   },
@@ -62,7 +62,7 @@ const cats = {
     image: attackImg,
     hp: 65,
     speed: 4,
-    shootSpeed: 350,
+    shootSpeed: 250,
     skillName: "3WAY",
     skillCooldown: 9000
   }
@@ -828,6 +828,5 @@ function loop() {
   requestAnimationFrame(loop);
 
 }
-console.log("loop前");
+
 loop();
-console.log("loop後");
