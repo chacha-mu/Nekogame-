@@ -1,3 +1,4 @@
+alert("JS読み込み成功");
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
@@ -827,5 +828,6 @@ function loop() {
   requestAnimationFrame(loop);
 
 }
-console.log("JS OK");
+console.log("loop前");
 loop();
+console.log("loop後");
