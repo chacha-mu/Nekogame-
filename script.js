@@ -52,7 +52,7 @@ const cats = {
     image: tankImg,
     hp: 300,
     speed: 3,
-    shootSpeed: 320,
+    shootSpeed: 500,
     skillName: "鉄壁",
     skillCooldown: 10000
   },
