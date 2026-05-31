@@ -827,5 +827,5 @@ function loop() {
   requestAnimationFrame(loop);
 
 }
-
+console.log("JS OK");
 loop();
