@@ -392,14 +392,32 @@ function startGame() {
 
   gameStarted = true;
 
-  spawnHuman();
+  for(let i = 0; i < spawnCount; i++){
+    spawnHuman();
+  }
 
-  enemyInterval = setInterval(spawnHuman, 500);
+  enemyInterval = setInterval(() => {
 
-  shootInterval = setInterval(shoot, selectedCat.shootSpeed);
+    for(let i = 0; i < spawnCount; i++){
+      spawnHuman();
+    }
+
+  }, 1000);
+
+  shootInterval = setInterval(
+    shoot,
+    selectedCat.shootSpeed
+  );
+
+  // 10秒ごとに増加量アップ
+
+  setInterval(() => {
+
+    spawnCount++;
+
+  }, 10000);
 
 }
-
 // ====================
 // リスタート
 // ====================
