@@ -105,6 +105,7 @@ const keys = {};
 let enemyInterval;
 let shootInterval;
 
+let spawnCount = 1;
 // ====================
 // キー入力
 // ====================
