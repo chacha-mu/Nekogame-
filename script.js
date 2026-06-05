@@ -413,7 +413,7 @@ function startGame() {
 
   setInterval(() => {
 
-    spawnCount++;
+    spawnCount += 2;
 
   }, 10000);
 
